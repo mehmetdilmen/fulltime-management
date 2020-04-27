@@ -103,13 +103,14 @@ class StudentDetail extends Component {
 
     pay = (id, item) => {
         debugger
-            this.state.data.all_periods[id - 1].planingInstallment.map(installItem => {
-                if (installItem.id == item) {
-                    installItem.isItPaid = true;
-                    this.state.data.all_periods[id - 1].totalPaid += installItem.installPay;
-                    Object.assign(installItem, {payDate: Date()})
-                }
-            })
+        this.state.data.all_periods[id - 1].planingInstallment.map(installItem => {
+            if (installItem.id == item) {
+                debugger
+                installItem.isItPaid = true;
+                this.state.data.all_periods[id - 1].totalPaid += installItem.installPay;
+                Object.assign(installItem, {payDate: Date()})
+            }
+        })
         debugger
         this.updatePaymentService();
     };
@@ -350,15 +351,15 @@ class StudentDetail extends Component {
                                             label="Taksit Ödemesi Başlangıç">{p.installmentPaymentDate}</Descriptions.Item> : null
                                     }
 
-
-                                    <div style={{marginBottom: "30px"}}>
-                                        <PDFDownloadLink
-                                            document={<PaymentInfoPDF data={p}/>}
-                                            fileName="odemeplani.pdf"
-                                            className={"pdf-btn"}
-                                        >Dönem Ödeme Bilgisi PDF</PDFDownloadLink>
-                                    </div>
-
+                                    {p.payment !== "cash" ?
+                                        <div style={{marginBottom: "30px"}}>
+                                            <PDFDownloadLink
+                                                document={<PaymentInfoPDF data={p.planingInstallment}/>}
+                                                fileName="odemeplani.pdf"
+                                                className={"pdf-btn"}
+                                            >Dönem Ödeme Bilgisi PDF</PDFDownloadLink>
+                                        </div>
+                                        : null}
                                     {p.payment !== "cash" ?
                                         <Table dataSource={p.planingInstallment}>
                                             <ColumnGroup title="Taksit">
@@ -372,8 +373,14 @@ class StudentDetail extends Component {
                                             </ColumnGroup>
                                             <Column title="Son Ödeme Tarihi" key="installmentDate"
                                                     render={(text, record) => (
-                                                        <Moment
-                                                            format="DD/MM/YYYY">{record.installmentDate}</Moment>
+                                                        <div>
+                                                        {
+                                                            record.installmentDate !== null ?
+                                                                <Moment
+                                                                    format="DD/MM/YYYY">{record.installmentDate}</Moment>
+                                                                : <div>-</div>
+                                                        }
+                                                        </div>
                                                     )}
                                             />
 
@@ -382,10 +389,10 @@ class StudentDetail extends Component {
                                                     render={(text, record) => (
                                                         <div>
                                                             {
-                                                                record.payDate !== null ?
+                                                                record.payDate !== undefined ?
                                                                     <Moment
                                                                         format="DD/MM/YYYY">{record.payDate}</Moment>
-                                                                    : <div>-</div>
+                                                                    : <div>...</div>
                                                             }
                                                         </div>
                                                     )}

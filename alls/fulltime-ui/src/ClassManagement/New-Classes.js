@@ -228,7 +228,7 @@ class NewClasses extends React.Component {
                     classTeacher: values.classTeacher
                 }
             ];
-            if (values.classTeacher.personalClass === undefined) {
+            if (values.classTeacher.personalClass === null) {
                 this.personalUpdateServices([{name: data[0].className}], values.classTeacher.id);
             } else {
                 this.personalUpdateServices([...values.classTeacher.personalClass, {name: data[0].className}], values.classTeacher.id);

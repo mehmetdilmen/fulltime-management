@@ -1,14 +1,18 @@
 import React, {Component} from "react";
 import {Table} from "antd";
-import Moment from "react-moment";
+import font from "../fonts/Roboto-Medium.ttf"
+
 import {
     Page,
     Text,
     View,
     Document,
-    StyleSheet
+    StyleSheet,
+    Font
 } from "@react-pdf/renderer";
 
+Font.register({ family: 'Roboto',   format: "truetype",
+    src: font });
 
 const {Column, ColumnGroup} = Table;
 
@@ -22,94 +26,104 @@ export class PaymentInfoPDF extends Component {
 
         const styles = StyleSheet.create({
             page: {
-                backgroundColor: "#ffffff"
-                // margin: 50
+                fontFamily: 'Roboto',
             },
-            section: {
-                margin: 10,
-                padding: 10,
-                flexGrow: 1
+            table: {
+                display: "table",
+                width: "auto",
+                borderStyle: "solid",
+                borderWidth: 1,
+                borderRightWidth: 0
             },
-            logo: {
-                width: 101,
-                height: 95
+            tableRow: {
+                margin: "auto",
+                flexDirection: "row"
             },
-            header: {
-                display: "block",
-                top: 5,
-                padding: 20,
-                flexDirection: "row",
-                borderRadius: 4,
-                borderWidth: 0.5,
-                borderColor: "#d6d7da",
-                alignItems: "center",
-                justifyContent: "space-between"
+            tableCol: {
+                width: "20%",
+                borderStyle: "solid",
+                borderWidth: 1,
+                borderLeftWidth: 0,
+                borderTopWidth: 0
             },
-            headerLeft: {
-                flexDirection: "row",
-                borderRadius: 4,
-                borderWidth: 0.5,
-                borderColor: "#d6d7da",
-                alignItems: "center"
+            tableCell: {
+                margin: "auto",
+                marginTop: 5,
+                fontSize: 10,
             },
-            headerRight: {
-                marginRight: 50
-            },
-            headerLead: {
-                fontSize: 20,
-                fontWeight: "bold"
-            },
+            inside: {
+                margin: "auto",
+                marginTop: 5,
+                fontSize: 10
 
-            columnInstallmentsClass: {
-                display: "block"
             }
-
         });
 
         return (
             <Document>
-                <Page style={styles.page}>
-                    <Header></Header>
+                <Page size="A4" style={styles.body}>
+                    <View style={styles.table}>
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Taksit Sayısı</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Tutar</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Son Ö.T</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Ödeme Tarihi</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Durum</Text>
+                            </View>
+                        </View>
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol}>
+                                {
+                                    person.map(p => (
+                                        <Text style={styles.inside}>{p.installNumber}</Text>
+                                    ))
+                                }
+                            </View>
+                            <View style={styles.tableCol}>
+                                {
+                                    person.map(p => (
+                                        <Text style={styles.inside}>{p.installPay}</Text>
+                                    ))
+                                }
+                            </View>
+                            <View style={styles.tableCol}>
+                                {
+                                    person.map(p => (
+                                        <Text style={styles.inside}>{p.installmentDate}</Text>
+                                    ))
+                                }
+                            </View>
+                            <View style={styles.tableCol}>
+                                {
+                                    person.map(p => (
+                                        <Text style={styles.inside}>{p.payDate}</Text>
+                                    ))
+                                }
+                            </View>
+                            <View style={styles.tableCol}>
+                                {
+                                    person.map(p => (
+                                        <Text style={styles.inside}>
+                                            {p.isItPaid ?
+                                                <Text>Ödendi</Text> : <Text>Ödenmedi</Text>}
+                                        </Text>
+                                    ))
+                                }
+                            </View>
+                        </View>
+                    </View>
                 </Page>
             </Document>
         );
-
-
-        function Header() {
-            return (
-                <View>
-                    {
-                        person === undefined ?
-                            person.all_periods.map(period => {
-                                debugger
-                                if (period.payment !== "cash") {
-                                    period.planingInstallment.map(p => (
-                                            <View style={styles.header}>
-
-                                                <View style={styles.columnInstallmentsClass}>
-                                                    <Text>Taksit Sayisi: {p.installNumber}</Text>
-
-                                                    <Text>Tutar: {p.installPay}</Text>
-
-                                                    <Text>Son Ödeme Tarihi: {p.installmentDate}</Text>
-
-                                                    <Text>Ödeme Tarihi: {p.payDate}</Text>
-
-                                                    {p.isItPaid ? <Text>Durum: Ödendi</Text> : <Text>Durum: Ödenmedi</Text>}
-                                                </View>
-                                            </View>
-
-                                        )
-                                    )
-                                }
-
-                            })
-                            : null}
-                </View>
-
-            );
-        }
-
 
     }
 

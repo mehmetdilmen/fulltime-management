@@ -59,11 +59,11 @@ class StudentForm extends React.Component {
             }
 
             if (values.payment === "cashandinstallment") {
-                Object.assign(periods[0], {totalPaid: parseFloat(values.totalPayment)})
+                Object.assign(periods[0], {totalPaid: parseFloat(values.totalPayment), id: 1})
             }
 
             if (values.payment === "installment") {
-                Object.assign(periods[0], {totalPaid: 0})
+                Object.assign(periods[0], {totalPaid: 0, id: 1})
             }
 
             if (values.payment === "cash") {

@@ -1,0 +1,111 @@
+.App {
+    text-align: center;
+}
+
+.App, .ant-layout, #root {
+    height: 100%;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.box-one {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 11px;
+    margin: 5px;
+}
+
+.monday-color {
+    background-color: #50a0fa;
+}
+
+.tuesday-color {
+    background-color: #dcfadc;
+}
+
+.wednesday-color {
+    background-color: #f4fa76;
+}
+
+.thursday-color {
+    background-color: #7bfa73;
+}
+
+.friday-color {
+    background-color: #fa728d;
+}
+
+.saturday-color {
+    background-color: #09e6fa;
+}
+
+.sunday-color {
+    background-color: #fac33f;
+}
+
+.day-title {
+    font-weight: bold;
+}
+
+.total-money-number {
+    display: inline-block;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+.boxes-list {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.home-boxes {
+    min-height: 200px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.pdf-btn {
+    padding: 8px;
+    position: relative;
+    border-radius: 5px;
+    background-color: orange;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}

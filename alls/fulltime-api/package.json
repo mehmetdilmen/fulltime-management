@@ -19,7 +19,7 @@
     "multer": "^1.4.2",
     "nodemon": "^1.19.2",
     "non-blocking-bcrypt-nodejs": "^1.0.4",
-    "pug": "2.0.0-beta11"
+    "pug": "3.0.1"
   },
   "devDependencies": {}
 }
